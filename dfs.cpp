@@ -15,7 +15,7 @@ vector<vector<int>> maze ={
     {1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 0, 0, 1, 0, 0, 1, 0, 1},
     {1, 0, 1, 0, 0, 0, 0, 1, 1},
-    {1, 0, 0, 0, 1, 0, 1, 1, 1},
+    {1, 0, 0, 0, 1, 1, 0, 1, 1},
     {1, 1, 1, 1, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 1, 1, 0, 1, 0, 0, 0, 1},
@@ -31,7 +31,7 @@ bool is_in_visited(vector<pair<int,int>> visited,pair<int,int> new_pos){
     }
     return false;
 }
-void dfs(vector<pair<int,int>> visited, pair<int,int> current_pos){
+bool dfs(vector<pair<int,int>> visited, pair<int,int> current_pos){
     // check if is in goal:
     if(current_pos==goal){
         cout<<"TARGET REACHED! PATH:\n";
@@ -39,6 +39,8 @@ void dfs(vector<pair<int,int>> visited, pair<int,int> current_pos){
         {
             cout<<"<"<<pos.first<<","<<pos.second<<">\t";
         }
+        cout<<endl;
+        return true;
         
     }
     // go right if possible:
@@ -48,8 +50,10 @@ void dfs(vector<pair<int,int>> visited, pair<int,int> current_pos){
     {
         auto visited_new = visited;
         visited_new.push_back(new_pos);
-        cout<<"Going to <"<<new_pos.first<<","<<new_pos.second<<">!"<<endl;
-        dfs(visited_new,new_pos);
+        // cout<<"Going to <"<<new_pos.first<<","<<new_pos.second<<">!"<<endl;
+        bool reached_target = dfs(visited_new,new_pos);
+        if(reached_target)
+            return true;
     }
     // go down if possible:
     new_pos = {current_pos.first+1,current_pos.second};
@@ -57,8 +61,10 @@ void dfs(vector<pair<int,int>> visited, pair<int,int> current_pos){
     {
         auto visited_new = visited;
         visited_new.push_back(new_pos);
-        cout<<"Going to <"<<new_pos.first<<","<<new_pos.second<<">!"<<endl;
-        dfs(visited_new,new_pos);
+        // cout<<"Going to <"<<new_pos.first<<","<<new_pos.second<<">!"<<endl;
+        bool reached_target = dfs(visited_new,new_pos);
+        if(reached_target)
+            return true;
     }
     // go up if possible:
     new_pos = {current_pos.first-1,current_pos.second};
@@ -66,8 +72,10 @@ void dfs(vector<pair<int,int>> visited, pair<int,int> current_pos){
     {
         auto visited_new = visited;
         visited_new.push_back(new_pos);
-        cout<<"Going to <"<<new_pos.first<<","<<new_pos.second<<">!"<<endl;
-        dfs(visited_new,new_pos);
+        // cout<<"Going to <"<<new_pos.first<<","<<new_pos.second<<">!"<<endl;
+        bool reached_target = dfs(visited_new,new_pos);
+        if(reached_target)
+            return true;
     }
     // go right if possible:
     new_pos = {current_pos.first,current_pos.second-1};
@@ -75,10 +83,12 @@ void dfs(vector<pair<int,int>> visited, pair<int,int> current_pos){
     {
         auto visited_new = visited;
         visited_new.push_back(new_pos);
-        cout<<"Going to <"<<new_pos.first<<","<<new_pos.second<<">!"<<endl;
-        dfs(visited_new,new_pos);
+        // cout<<"Going to <"<<new_pos.first<<","<<new_pos.second<<">!"<<endl;
+        bool reached_target = dfs(visited_new,new_pos);
+        if(reached_target)
+            return true;
     }
-    
+    return false;
     
 
 }
@@ -92,7 +102,7 @@ int main(){
         }
         cout<<endl;
     }
-    dfs({},{1,1});
+    dfs({{1,1}},{1,1});
 
     return 0;
 }

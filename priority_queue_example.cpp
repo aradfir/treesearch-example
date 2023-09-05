@@ -3,7 +3,6 @@
 #include <vector>
 
 using namespace std;
-typedef pair<int,int> location;
 typedef vector<int> path;
 typedef pair<int,path> pq_item;
 
@@ -22,10 +21,10 @@ int main(){
 
     // top = maximum value
     // chon manfi kardim, gharinash kamtarine
-    auto lowest_cost = Q1.top();
+    pq_item best_item = Q1.top();
     // hazine node i ke baiad baz she ro minevisim + masire feli
-    cout<<"TOTAL COST:"<<-lowest_cost.first<<"\t\tPath:";
-    for(int val:lowest_cost.second){
+    cout<<"TOTAL COST:"<<-best_item.first<<"\t\tPath:";
+    for(int val:best_item.second){
         cout<<val<<"\t";
     }
 
